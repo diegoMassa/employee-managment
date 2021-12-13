@@ -1,0 +1,35 @@
+version: 0.2 
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo Nothing to do in install phase...
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 431155320678.dkr.ecr.us-east-2.amazonaws.com
+      - REPOSITORY_NAME=employee-ecr-repo
+      - REPOSITORY_URI=431155320678.dkr.ecr.us-east-2.amazonaws.com/$REPOSITORY_NAME
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn clean install
+      - echo building the docker image ...
+      - docker build -t $REPOSITORY_NAME .
+      - echo tagging the Docker image ...
+      - docker tag $REPOSITORY_NAME:latest $REPOSITORY_URI:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images to ECR ...
+      - docker push $REPOSITORY_URI:latest
+      - echo writing image definitions file ...
+      - printf '[{"name":"employee-api","imageUri":"431155320678.dkr.ecr.us-east-2.amazonaws.com/employee-ecr-repo:latest"}]' > imagedefinitions.json
+      - cat imagedefinitions.json
+      
+artifacts:
+  files: 
+      - imagedefinitions.json

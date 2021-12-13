@@ -24,7 +24,7 @@ public class RouterFunctionConfig {
 		return route(GET("/api/v2/employee"), handler::findAllEmployees)
 				.andRoute(GET("/api/v2/employee/{id}"), handler::findEmployeeById)
 				.andRoute(GET("/api/v2/welcome"), handler::welcome)
-				.andRoute(POST("/api/v3/employee"), handler::saveEmployeeWithAchievements)
+				.andRoute(POST("/api/v2/employee"), handler::saveEmployeeWithAchievements)
 				.andRoute(PUT("/api/v2/employee/{id}"), handler::updateEmployee)
 				.andRoute(DELETE("/api/v2/employee/{id}"), handler::deleteEmployee)
 				;

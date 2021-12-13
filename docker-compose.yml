@@ -1,18 +1,19 @@
 services:
     app:
+        #image: 431155320678.dkr.ecr.us-east-2.amazonaws.com/employee-ecr-repo:latest
         image: dmunoz/employee-managment:0.0.1-SNAPSHOT
         container_name: 'employee-webflux'
         restart: always
-        #build: .
         ports: 
           - '8080:8080'
         environment:
-          - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/employee_db
+          - DB_URI=mongodb://mongo:27017/employee_db
         depends_on: 
           - mongo
         networks: 
           - myNetwork
     mongo:
+        #image: public.ecr.aws/bitnami/mongodb:latest
         image: mongo:latest
         container_name: 'mongo_db'
         restart: always

@@ -17,5 +17,10 @@ public class DocumentTypeService implements IDocumentTypeService {
 	@Override
 	public Mono<DocumentType> save(DocumentType documentType) {
 		return documentTypeRepository.save(documentType);
+	}
+
+	@Override
+	public Mono<DocumentType> findById(String id) {
+		return documentTypeRepository.findById(id);
 	} 
 }

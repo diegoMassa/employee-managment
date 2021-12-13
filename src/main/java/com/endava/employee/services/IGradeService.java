@@ -8,4 +8,6 @@ public interface IGradeService {
 
 	public Mono<Grade> save(Grade grade);
 	
+	public Mono<Grade> findById(String id);
+	
 }

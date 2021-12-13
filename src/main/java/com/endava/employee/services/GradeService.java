@@ -18,4 +18,9 @@ public class GradeService implements IGradeService{
 	public Mono<Grade> save(Grade grade) {
 		return gradeRepository.save(grade);
 	}
+
+	@Override
+	public Mono<Grade> findById(String id) {
+		return gradeRepository.findById(id);
+	}
 }

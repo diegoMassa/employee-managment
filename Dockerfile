@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM public.ecr.aws/docker/library/openjdk:11
 RUN apt-get update && apt-get install bash
 EXPOSE 8080
 ADD target/*.jar app.jar
